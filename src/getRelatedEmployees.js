@@ -9,7 +9,11 @@ function isManager(id) {
 }
 
 function getRelatedEmployees(managerId) {
-  // seu código aqui
+  if(isManager(managerId)) {
+    
+  } else {
+    throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
+  }
 }
 
 module.exports = { isManager, getRelatedEmployees };
