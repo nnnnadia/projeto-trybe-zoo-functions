@@ -4,6 +4,14 @@ const weekDays = Object.keys(hours);
 
 function createDayObj(day) {
   const { open, close } = hours[day];
+  if (open === 0 && close === 0) {
+    return ({
+      [day]: {
+        officeHour: 'CLOSED',
+        exhibition: 'The zoo will be closed!',
+      }
+    });
+  }
   const avAnimals = species
     .filter(({ availability }) => availability.includes(day))
     .map((spec) => spec.name);
