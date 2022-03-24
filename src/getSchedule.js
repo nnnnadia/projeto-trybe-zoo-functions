@@ -1,7 +1,5 @@
 const { hours, species } = require('../data/zoo_data');
 
-const weekDays = Object.keys(hours);
-
 function createDayObj(day) {
   const { open, close } = hours[day];
   if (open === 0 && close === 0) {
@@ -9,7 +7,7 @@ function createDayObj(day) {
       [day]: {
         officeHour: 'CLOSED',
         exhibition: 'The zoo will be closed!',
-      }
+      },
     });
   }
   const avAnimals = species
@@ -19,16 +17,18 @@ function createDayObj(day) {
     [day]: {
       officeHour: `Open from ${open}am until ${close}pm`,
       exhibition: avAnimals,
-    }
+    },
   });
 }
 
 function getSchedule(scheduleTarget) {
-  if (Object.keys(hours).some((day) => day === scheduleTarget)) {
+  const weekDays = Object.keys(hours);
+  if (weekDays.some((day) => day === scheduleTarget)) {
     return createDayObj(scheduleTarget);
   }
-  return hours[scheduleTarget];
-  // return createDayObj(scheduleTarget);
+  if (species.some((spec) => spec.name === scheduleTarget)) {
+    return species.find((spec) => spec.name === scheduleTarget).availability;
+  }
 }
 
 module.exports = getSchedule;
