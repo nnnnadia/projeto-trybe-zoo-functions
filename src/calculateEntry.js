@@ -4,15 +4,12 @@ function countEntrants(entrants) {
   return entrants
     .reduce((acc, { age }) => {
       if (age < 18) {
-        acc.child += 1;
-        return acc;
+        return { ...acc, child: acc.child + 1 };
       }
       if (age < 50) {
-        acc.adult += 1;
-        return acc;
+        return { ...acc, adult: acc.adult + 1 };
       }
-      acc.senior += 1;
-      return acc;
+      return { ...acc, senior: acc.senior + 1 };
     }, {
       adult: 0,
       child: 0,
