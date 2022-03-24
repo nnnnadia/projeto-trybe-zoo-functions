@@ -29,6 +29,11 @@ function getSchedule(scheduleTarget) {
   if (species.some((spec) => spec.name === scheduleTarget)) {
     return species.find((spec) => spec.name === scheduleTarget).availability;
   }
+  const weekSchedule = {};
+  weekDays.forEach((day) => {
+    weekSchedule[day] = createDayObj(day)[day];
+  });
+  return weekSchedule;
 }
 
 module.exports = getSchedule;
