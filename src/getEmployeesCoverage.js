@@ -1,5 +1,13 @@
 const { employees, species } = require('../data/zoo_data');
 
+function isValidEmp(emp) {
+  const currentEmployee = employees.find((employee) => employee.firstName === emp || employee.lastName === emp || employee.id === emp);
+  if (currentEmployee === undefined) {
+    throw new Error('Informações inválidas');
+  }
+  return currentEmployee.id;
+}
+
 function getAnimalsLocations(specs) {
   return species
     .filter((spec) => specs.includes(spec.name))
@@ -33,6 +41,7 @@ function getEmployeesCoverage(token) {
       .map((emp) => emp.id)
       .map((emp) => getEmployeeRecord(emp));
   }
+  isValidEmp(token);
 }
 
 module.exports = getEmployeesCoverage;
