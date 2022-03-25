@@ -1,35 +1,27 @@
 const { employees, species } = require('../data/zoo_data');
 
-function isValidEmp(emp) {
-  const currentEmployee = employees.find((employee) => employee.firstName === emp || employee.lastName === emp || employee.id === emp);
-  if (currentEmployee === undefined) {
-    throw new Error('Informações inválidas');
-  }
-  return currentEmployee.id;
-}
-
-function getAnimalsLocations(specs) {
+function getAnimalsLocations(responsibleSpecies) {
   return species
-    .filter((spec) => specs.includes(spec.name))
-    .map((spec) => spec.location);
+    .filter((specie) => responsibleSpecies.includes(specie.name))
+    .map((specie) => specie.location);
 }
 
-function getAnimalsNames(emp) {
+function getAnimalsNames(employee) {
   return species
-    .filter((spec) => emp[0].responsibleFor.includes(spec.id))
-    .map((spec) => spec.name);
+    .filter((specie) => employee[0].responsibleFor.includes(specie.id))
+    .map((specie) => specie.name);
 }
 
-function getEmployeeFullname(emp) {
-  return `${emp[0].firstName} ${emp[0].lastName}`;
+function getEmployeeFullname(employee) {
+  return `${employee[0].firstName} ${employee[0].lastName}`;
 }
 
-function getEmployeeRecord(emp) {
-  const curEmp = employees.filter(({ id }) => id === emp);
-  const responsibleSpecs = [...getAnimalsNames(curEmp)];
+function getEmployeeRecord(token) {
+  const currEmployee = employees.filter(({ id }) => id === token);
+  const responsibleSpecs = [...getAnimalsNames(currEmployee)];
   return ({
-    id: emp,
-    fullName: getEmployeeFullname(curEmp),
+    id: token,
+    fullName: getEmployeeFullname(currEmployee),
     species: responsibleSpecs,
     locations: getAnimalsLocations(responsibleSpecs),
   });
@@ -38,10 +30,17 @@ function getEmployeeRecord(emp) {
 function getEmployeesCoverage(token) {
   if (token === undefined) {
     return employees
-      .map((emp) => emp.id)
-      .map((emp) => getEmployeeRecord(emp));
+      .map((employee) => employee.id)
+      .map((employee) => getEmployeeRecord(employee));
   }
-  isValidEmp(token);
+  const currentEmployee = employees
+    .find((employee) => employee.firstName === token.name
+      || employee.lastName === token.name
+      || employee.id === token.id);
+  if (currentEmployee === undefined) {
+    throw new Error('Informações inválidas');
+  }
+  return getEmployeeRecord(currentEmployee.id);
 }
 
 module.exports = getEmployeesCoverage;
