@@ -7,9 +7,8 @@ const locationsList = ['NE', 'NW', 'SE', 'SW'];
 function sortNames() {
   locationsList.forEach((location) => {
     namedSpeciesLocations[location].forEach((obj) => {
-      for (const arr in obj) {
-        obj[arr].sort();
-      }
+      const animal = Object.keys(obj);
+      obj[animal].sort();
     });
   });
 }
