@@ -16,6 +16,9 @@ const data = require('../data/zoo_data');
 //   },
 // ]
 
+/*
+  getSpeciesByIds recebe id ou ids e para cada id busca o objeto com este id e o retorna.
+*/
 function getSpeciesByIds(...ids) {
   return ids.map((id) => data.species.find((animalObj) => animalObj.id === id));
 }
