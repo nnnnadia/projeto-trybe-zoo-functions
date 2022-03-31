@@ -4,6 +4,16 @@ let speciesLocations = {};
 let namedSpeciesLocations = {};
 const locationsList = ['NE', 'NW', 'SE', 'SW'];
 
+function sortNames() {
+  locationsList.forEach((location) => {
+    namedSpeciesLocations[location].forEach((obj) => {
+      for (const arr in obj) {
+        obj[arr].sort();
+      }
+    });
+  });
+}
+
 function getResidentsList(animal, sex) {
   const animalObj = {};
   animalObj[animal] = species
@@ -56,7 +66,7 @@ function getAnimalMap(options) {
     namedSpeciesLocations = generateNamesMap();
   }
   if (options.sorted) {
-    
+    sortNames();
   }
   return namedSpeciesLocations;
 }
