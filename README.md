@@ -1,5 +1,7 @@
 # Projeto Trybe - Zoo Functions
 
+Implementação de várias funções para atender aos requisitos propostos e garantir que todas as funções passem nos testes unitários.
+
 #### Habilidades desenvolvidas:
 
 - Produzir código legível, conciso e expressivo utilizando as novas funcionalidades do ES6;
